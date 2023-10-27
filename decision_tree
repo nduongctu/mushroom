@@ -1,0 +1,37 @@
+digraph Tree {
+node [shape=box, fontname="helvetica"] ;
+edge [fontname="helvetica"] ;
+0 [label="gill-color <= 0.5\nentropy = 0.999\nsamples = 5686\nvalue = [2951, 2735]\nclass = edible"] ;
+1 [label="entropy = 0.0\nsamples = 1216\nvalue = [0, 1216]\nclass = poisonous"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label="spore-print-color <= 1.5\nentropy = 0.925\nsamples = 4470\nvalue = [2951, 1519]\nclass = edible"] ;
+0 -> 2 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+3 [label="odor <= 3.5\nentropy = 0.329\nsamples = 1176\nvalue = [71, 1105]\nclass = poisonous"] ;
+2 -> 3 ;
+4 [label="entropy = 0.0\nsamples = 1105\nvalue = [0, 1105]\nclass = poisonous"] ;
+3 -> 4 ;
+5 [label="entropy = 0.0\nsamples = 71\nvalue = [71, 0]\nclass = edible"] ;
+3 -> 5 ;
+6 [label="gill-size <= 0.5\nentropy = 0.545\nsamples = 3294\nvalue = [2880, 414]\nclass = edible"] ;
+2 -> 6 ;
+7 [label="spore-print-color <= 4.5\nentropy = 0.183\nsamples = 2802\nvalue = [2724, 78]\nclass = edible"] ;
+6 -> 7 ;
+8 [label="entropy = 0.0\nsamples = 2315\nvalue = [2315, 0]\nclass = edible"] ;
+7 -> 8 ;
+9 [label="spore-print-color <= 6.0\nentropy = 0.635\nsamples = 487\nvalue = [409, 78]\nclass = edible"] ;
+7 -> 9 ;
+10 [label="entropy = 0.0\nsamples = 49\nvalue = [0, 49]\nclass = poisonous"] ;
+9 -> 10 ;
+11 [label="entropy = 0.352\nsamples = 438\nvalue = [409, 29]\nclass = edible"] ;
+9 -> 11 ;
+12 [label="odor <= 5.5\nentropy = 0.901\nsamples = 492\nvalue = [156, 336]\nclass = poisonous"] ;
+6 -> 12 ;
+13 [label="odor <= 2.0\nentropy = 0.999\nsamples = 324\nvalue = [156, 168]\nclass = poisonous"] ;
+12 -> 13 ;
+14 [label="entropy = 0.692\nsamples = 167\nvalue = [31, 136]\nclass = poisonous"] ;
+13 -> 14 ;
+15 [label="entropy = 0.73\nsamples = 157\nvalue = [125, 32]\nclass = edible"] ;
+13 -> 15 ;
+16 [label="entropy = 0.0\nsamples = 168\nvalue = [0, 168]\nclass = poisonous"] ;
+12 -> 16 ;
+}
