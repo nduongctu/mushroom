@@ -36,7 +36,8 @@
 <head>
     <title>Mushroom Prediction</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -53,10 +54,9 @@
     <form action="{{ url_for('main') }}" method="POST">
         <div class="form-group">
 
-
             <legend>Nhập giá trị</legend>
-
-            <br>Hình dạng mũ:<br>
+            <!-- 1 -->
+            <br>Hình dạng mũ nấm (cap-shape):<br>
             <select name="cap-shape" class="form-control" required>
                 <option value="x">Lồi (Convex)</option>
                 <option value="b">Hình chuông (Bell)</option>
@@ -65,60 +65,209 @@
                 <option value="k">Có nút nhô lên (Knobbed)</option>
                 <option value="c">Hình nón (Conical)</option>
             </select>
-
-            <br>Cap_surface:<br>
-            <input name="cap_surface" type="number" class="form-control" required>
-
-            <br>Cap_color<br>
-            <input name="cap_color" type="number" class="form-control" required>
-
-            <br>Bruises<br>
-            <input name="bruises" type="number" class="form-control" required>
-
-            <br>Odor<br>
-            <input name="odor" type="number" class="form-control" required>
-
-            <br>Gill_attachment<br>
-            <input name="gill_attachment" type="number" class="form-control" required>
-
-            <br>Gill_size<br>
-            <input name="gill_size" type="number" class="form-control" required>
-
-            <br>Gill_color<br>
-            <input name="gill_color" type="number" class="form-control" required>
-
-            <br>Stalk_shape<br>
-            <input name="stalk_shape" type="number" class="form-control" required>
-
-            <br>Stalk_surface_above_ring<br>
-            <input name="stalk_surface_above_ring" type="number" class="form-control" required>
-
-            <br>Stalk_surface_below_ring<br>
-            <input name="stalk_surface_below_ring" type="number" class="form-control" required>
-
-            <br>Stalk_color_above_ring<br>
-            <input name="stalk_color_above_ring" type="number" class="form-control" required>
-
-            <br>Stalk_color_below_ring<br>
-            <input name="stalk_color_below_ring" type="number" class="form-control" required>
-
-            <br>Veil_color<br>
-            <input name="veil_color" type="number" class="form-control" required>
-
-            <br>Ring_number<br>
-            <input name="ring_number" type="number" class="form-control" required>
-
-            <br>Ring_type<br>
-            <input name="ring_type" type="number" class="form-control" required>
-
-            <br>Spore_print_color<br>
-            <input name="spore_print_color" type="number" class="form-control" required>
-
-            <br>Population<br>
-            <input name="population" type="number" class="form-control" required>
-
-            <br>Habitat<br>
-            <input name="habitat" type="number" class="form-control" required>
+            <!-- 2 -->
+            <br>Bề mặt mũ nấm (cap-surface):<br>
+            <select name="cap-surface" class="form-control" required>
+                <option value="f">Sợi (Fibrous)</option>
+                <option value="g">Rãnh (Grooves)</option>
+                <option value="y">Vảy (Scaly)</option>
+                <option value="s">Mịn (Smooth)</option>
+            </select>
+            <!-- 3 -->
+            <br>Màu mũ nấm (cap-color):<br>
+            <select name="cap-color" class="form-control" required>
+                <option value="n">Nâu (Brown)</option>
+                <option value="b">Màu kem (buff)</option>
+                <option value="c">Màu quế (cinnamon)</option>
+                <option value="g">Xám (Gray)</option>
+                <option value="r">Xanh lá (Green)</option>
+                <option value="p">Hồng (Pink)</option>
+                <option value="u">Tím (Purple)</option>
+                <option value="e">Đỏ (Red)</option>
+                <option value="w">Trắng (White)</option>
+                <option value="y">Vàng (Yellow)</option>
+            </select>
+            <!-- 4 -->
+            <br>Có vết bầm tím? (bruises):<br>
+            <select name="bruises" class="form-control" required>
+                <option value="t">Có (bruises)</option>
+                <option value="f">Không (no)</option>
+            </select>
+            <!-- 5 -->
+            <br>Hương vị (odor):<br>
+            <select name="odor" class="form-control" required>
+                <option value="a">Hạnh nhân (almond)</option>
+                <option value="l">Hoa hồi (anise)</option>
+                <option value="c">Creosote (creosote)</option>
+                <option value="y">Cá yếu (fishy)</option>
+                <option value="f">Khó chịu (foul)</option>
+                <option value="m">Mốc mốc (musty)</option>
+                <option value="n">Không có (none)</option>
+                <option value="s">Cay (spicy)</option>
+            </select>
+            <!-- 6 -->
+            <br>Gắn kết (gill-attachment):<br>
+            <select name="gill-attachment" class="form-control" required>
+                <option value="a">Gắn kết (attached)</option>
+                <option value="d">Hạ xuống (descending)</option>
+                <option value="f">Tự do (free)</option>
+                <option value="n">Răng cưa (notched)</option>
+            </select>
+            <!-- 7 -->
+            <br>Khoảng cách giữa lá màng (gill-spacing):<br>
+            <select name="gill-spacing" class="form-control" required>
+                <option value="c">Gần nhau (close)</option>
+                <option value="w">Chật chội (crowded)</option>
+                <option value="d">Xa nhau (distant)</option>
+            </select>
+            <!-- 8 -->
+            <br>Kích thước lá màng (gill-size):<br>
+            <select name="gill-size" class="form-control" required>
+                <option value="b">Rộng (broad)</option>
+                <option value="n">Hẹp (narrow)</option>
+            </select>
+            <!-- 9 -->
+            <br>Màu lá màng (gill-color):<br>
+            <select name="gill-color" class="form-control" required>
+                <option value="k">Đen (black)</option>
+                <option value="n">Nâu (brown)</option>
+                <option value="b">Màu kem (buff)</option>
+                <option value="h">Sô cô la (chocolate)</option>
+                <option value="g">Xám (gray)</option>
+                <option value="r">Xanh lá cây (green)</option>
+                <option value="o">Cam (orange)</option>
+                <option value="p">Hồng (pink)</option>
+                <option value="u">Tím (purple)</option>
+                <option value="e">Đỏ (red)</option>
+                <option value="w">Trắng (white)</option>
+                <option value="y">Vàng (yellow)</option>
+            </select>
+            <!-- 10 -->
+            <br>Hình dạng thân (stalk-shape):<br>
+            <select name="stalk-shape" class="form-control" required>
+                <option value="e">Mở rộng (enlarging)</option>
+                <option value="t">Thon dài (tapering)</option>
+            </select>
+            <!-- 11 -->
+            <br>Rễ (stalk-root):<br>
+            <select name="stalk-root" class="form-control" required>
+                <option value="b">Rễ củ (bulbous)</option>
+                <option value="c">Gậy (club)</option>
+                <option value="u">Cốc (cup)</option>
+                <option value="e">Bằng nhau (equal)</option>
+                <option value="z">Rễ mạch (rhizomorphs)</option>
+                <option value="r">Có rễ (rooted)</option>
+                <option value="?">Không rõ (missing)</option>
+            </select>
+            <!-- 12 -->
+            <br>Bề mặt thân trên vòng (stalk-surface-above-ring):<br>
+            <select name="stalk-surface-above-ring" class="form-control" required>
+                <option value="f">Sợi (fibrous)</option>
+                <option value="y">Vảy (scaly)</option>
+                <option value="k">Nhẵn (silky)</option>
+                <option value="s">Mượt (smooth)</option>
+            </select>
+            <!-- 13 -->
+            <br>Bề mặt thân dưới vòng (stalk-surface-below-ring):<br>
+            <select name="stalk-surface-below-ring" class="form-control" required>
+                <option value="f">Sợi (fibrous)</option>
+                <option value="y">Vảy (scaly)</option>
+                <option value="k">Nhẵn (silky)</option>
+                <option value="s">Mượt (smooth)</option>
+            </select>
+            <!-- 14 -->
+            <br>Màu thân trên vòng (stalk-color-above-ring):<br>
+            <select name="stalk-color-above-ring" class="form-control" required>
+                <option value="n">Nâu (brown)</option>
+                <option value="b">Màu kem (buff)</option>
+                <option value="c">Màu quế (cinnamon)</option>
+                <option value="g">Xám (gray)</option>
+                <option value="o">Cam (orange)</option>
+                <option value="p">Hồng (pink)</option>
+                <option value="e">Đỏ (red)</option>
+                <option value="w">Trắng (white)</option>
+                <option value="y">Vàng (yellow)</option>
+            </select>
+            <!-- 15 -->
+            <br>Màu thân dưới vòng (stalk-color-below-ring):<br>
+            <select name="stalk-color-below-ring" class="form-control" required>
+                <option value="n">Nâu (brown)</option>
+                <option value="b">Màu kem (buff)</option>
+                <option value="c">Màu quế (cinnamon)</option>
+                <option value="g">Xám (gray)</option>
+                <option value="o">Cam (orange)</option>
+                <option value="p">Hồng (pink)</option>
+                <option value="e">Đỏ (red)</option>
+                <option value="w">Trắng (white)</option>
+                <option value="y">Vàng (yellow)</option>
+            </select>
+            <!-- 16 -->
+            <br>Loại màng vỏ (veil-type):<br>
+            <select name="veil-type" class="form-control" required>
+                <option value="p">Màng vỏ bán (partial)</option>
+                <option value="u">Màng vỏ toàn phần (universal)</option>
+            </select>
+            <!-- 17 -->
+            <br>Màu màng vỏ (veil-color):<br>
+            <select name="veil-color" class="form-control" required>
+                <option value="n">Nâu (brown)</option>
+                <option value="o">Cam (orange)</option>
+                <option value="w">Trắng (white)</option>
+                <option value="y">Vàng (yellow)</option>
+            </select>
+            <!-- 18 -->
+            <br>Số lượng vòng (ring-number):<br>
+            <select name="ring-number" class="form-control" required>
+                <option value="n">Không có (none)</option>
+                <option value="o">Một (one)</option>
+                <option value="t">Hai (two)</option>
+            </select>
+            <!-- 19 -->
+            <br>Loại vòng (ring-type):<br>
+            <select name="ring-type" class="form-control" required>
+                <option value="c">Mạng nhện (cobwebby)</option>
+                <option value="e">Biến mất (evanescent)</option>
+                <option value="f">Phồng lên (flaring)</option>
+                <option value="l">Lớn (large)</option>
+                <option value="n">Không có (none)</option>
+                <option value="p">Rủ xuống (pendant)</option>
+                <option value="s">Bọc (sheathing)</option>
+                <option value="z">Vùng (zone)</option>
+            </select>
+            <!-- 20 -->
+            <br>Màu bụi phấn (spore-print-color):<br>
+            <select name="spore-print-color" class="form-control" required>
+                <option value="k">Đen (black)</option>
+                <option value="n">Nâu (brown)</option>
+                <option value="b">Màu kem (buff)</option>
+                <option value="h">Sô cô la (chocolate)</option>
+                <option value="r">Xanh lá cây (green)</option>
+                <option value="o">Cam (orange)</option>
+                <option value="u">Tím (purple)</option>
+                <option value="w">Trắng (white)</option>
+                <option value="y">Vàng (yellow)</option>
+            </select>
+            <!-- 21 -->
+            <br>Độ đông dân số (population):<br>
+            <select name="population" class="form-control" required>
+                <option value="a">Dày đặc (abundant)</option>
+                <option value="c">Tụ tập (clustered)</option>
+                <option value="n">Nhiều (numerous)</option>
+                <option value="s">Rải rác (scattered)</option>
+                <option value="v">Một vài (several)</option>
+                <option value="y">Đơn độc (solitary)</option>
+            </select>
+            <!-- 22 -->
+            <br>Môi trường sống (habitat):<br>
+            <select name="habitat" class="form-control" required>
+                <option value="g">Cỏ (grasses)</option>
+                <option value="l">Lá (leaves)</option>
+                <option value="m">Đồng cỏ (meadows)</option>
+                <option value="p">Đường mòn (paths)</option>
+                <option value="u">Thành thị (urban)</option>
+                <option value="w">Rác thải (waste)</option>
+                <option value="d">Rừng (woods)</option>
+            </select>
 
             <br>
             <br>
@@ -143,12 +292,15 @@
         {% endif %}
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-    </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+        </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+        </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+        </script>
 </body>
 
 </html>
