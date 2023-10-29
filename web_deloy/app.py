@@ -35,6 +35,7 @@ def main():
         population = flask.request.form['population']
         habitat = flask.request.form['habitat']
 
+
         input_variables = pd.DataFrame([[cap_shape, cap_surface, cap_color, bruises, odor, gill_attachment,
                                          gill_spacing, gill_size, gill_color, stalk_shape,
                                          stalk_surface_above_ring, stalk_surface_below_ring,
@@ -47,13 +48,8 @@ def main():
                                                 'stalk-surface-below-ring', 'stalk-color-above-ring',
                                                 'stalk-color-below-ring', 'veil-color', 'ring-number',
                                                 'ring-type', 'spore-print-color', 'population', 'habitat'],
-                                       dtype='int64', index=['input'])
-
-        label_encoder = LabelEncoder()
-        for column in input_variables.columns:
-            input_variables[column] = label_encoder.fit_transform(input_variables[column])
-
-        predictions = model.predict(input_variables)[0]
+                                       dtype='int64', index=['select'])
+        predictions = model.predict(input_variables)
         print(predictions)
 
         return flask.render_template('main.html',
