@@ -1,304 +1,302 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
+{% block title %}Mushroom{% endblock %}
+{% block content %}
 
 <style>
-    .navbar-text h1 {
-        color: #fff;
-        font-size: 40px;
-        align-content: center;
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 20px;
     }
 
-    body {
-        background-color: grey;
+    h2, h3, h5 {
+        color: #322e2e;
+        text-align: center;
     }
 
     form {
-        margin-top: 50px;
-        margin: auto;
-        width: 35%;
-        ;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        margin: 50px auto;
+        width: 60%;
     }
 
-    .result {
-        margin: auto;
-        width: 35%;
-        border: 1px solid #ccc;
-        background-color: grey;
-        color: #fff;
-        padding: 20px;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        transition: 0.3s;
-        ;
+    legend {
+        font-weight: bold;
+        text-align: center;
+    }
+
+    select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 20px auto;
+        display: block;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    button:active {
+        background-color: #3e8e41;
+    }
+
+    .result-box {
+        background-color: lightblue;
+        padding: 10px;
+        border-radius: 5px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 </style>
 
-<head>
-    <title>Mushroom Prediction</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-</head>
 
-<body>
-
-    <nav class="navbar navbar-light bg-dark">
-        <span class="navbar-text">
-            <h1>Mushroom Prediction</h1>
-        </span>
-    </nav>
-
-
-
-    <form action="{{ url_for('main') }}" method="POST">
-        <div class="form-group">
-
-            <legend>Nhập giá trị</legend>
-            <!-- 1 -->
-            <br>Hình dạng mũ nấm (cap-shape):<br>
-            <select name="cap-shape" class="form-control" required>
-                <option value="5">Hình chuông (Bell)</option>
-                <option value="0">Hình nón (Conical)</option>
-                <option value="4">Phẳng (Flat)</option>
-                <option value="2">Có nút nhô lên (Knobbed)</option>
-                <option value="3">Lởm (Sunken)</option>
-                <option value="1">Lồi (Convex)</option>
-            </select>
-            <!-- 2 -->
-            <br>Bề mặt mũ nấm (cap-surface):<br>
-            <select name="cap-surface" class="form-control" required>
-                <option value="2">Sợi (Fibrous)</option>
-                <option value="3">Rãnh (Grooves)</option>
-                <option value="0">Mịn (Smooth)</option>
-                <option value="1">Vảy (Scaly)</option>
-            </select>
-            <!-- 3 -->
-            <br>Màu mũ nấm (cap-color):<br>
-            <select name="cap-color" class="form-control" required>
-                <option value="4">Màu kem (buff)</option>
-                <option value="9">Màu quế (cinnamon)</option>
-                <option value="8">Đỏ (Red)</option>
-                <option value="3">Xám (Gray)</option>
-                <option value="2">Nâu (Brown)</option>
-                <option value="5">Hồng (Pink)</option>
-                <option value="0">Xanh lá (Green)</option>
-                <option value="7">Tím (Purple)</option>
-                <option value="1">Trắng (White)</option>
-                <option value="6">Vàng (Yellow)</option>
-            </select>
-            <!-- 4 -->
-            <br>Có vết bầm tím? (bruises):<br>
-            <select name="bruises" class="form-control" required>
-                <option value="1">Không (no)</option>
-                <option value="0">Có (bruises)</option>
-            </select>
-            <!-- 5 -->
-            <br>Mùi(odor):<br>
-            <select name="odor" class="form-control" required>
-                <option value="6">Hạnh nhân (almond)</option>
-                <option value="0">Creosote (creosote)</option>
-                <option value="3">Khó chịu (foul)</option>
-                <option value="5">Hoa hồi (anise)</option>
-                <option value="2">Mốc mốc (musty)</option>
-                <option value="1">Không có (none)</option>
-                <option value="8">Cay (spicy)</option>
-                <option value="7">Cá yếu (fishy)</option>
-            </select>
-            <!-- 6 -->
-            <br>Phần nối mang (gill-attachment):<br>
-            <select name="gill-attachment" class="form-control" required>
-                <option value="1">Gắn kết (attached)</option>
-                <option value="0">Tự do (free)</option>
-                <!-- <option value="d">Hạ xuống (descending)</option>
-                <option value="n">Răng cưa (notched)</option> -->
-            </select>
-            <!-- 7 -->
-            <br>Khoảng cách giữa lá mang (gill-spacing):<br>
-            <select name="gill-spacing" class="form-control" required>
-                <option value="0">Gần nhau (close)</option>
-                <option value="1">Chật chội (crowded)</option>
-                <!-- <option value="d">Xa nhau (distant)</option> -->
-            </select>
-            <!-- 8 -->
-            <br>Kích thước lá mang (gill-size):<br>
-            <select name="gill-size" class="form-control" required>
-                <option value="1">Rộng (broad)</option>
-                <option value="0">Hẹp (narrow)</option>
-            </select>
-            <!-- 9 -->
-            <br>Màu lá mang (gill-color):<br>
-            <select name="gill-color" class="form-control" required>
-                <option value="4">Màu kem (buff)</option>
-                <option value="5">Đỏ (red)</option>
-                <option value="2">Xám (gray)</option>
-                <option value="7">Sô cô la (chocolate)</option>
-                <option value="10">Đen (black)</option>
-                <option value="3">Nâu (brown)</option>
-                <option value="6">Cam (orange)</option>
-                <option value="1">Hồng (pink)</option>
-                <option value="0">Xanh lá cây (green)</option>
-                <option value="8">Tím (purple)</option>
-                <option value="11">Trắng (white)</option>
-                <option value="6">Vàng (yellow)</option>
-            </select>
-            <!-- 10 -->
-            <br>Hình dạng thân (stalk-shape):<br>
-            <select name="stalk-shape" class="form-control" required>
-                <option value="0">Mở rộng (enlarging)</option>
-                <option value="1">Thon dài (tapering)</option>
-            </select>
-            <!-- 11 -->
-            <!-- <br>Rễ (stalk-root):<br>
-            <select name="stalk-root" class="form-control" required>
-                <option value="b">Rễ củ (bulbous)</option>
-                <option value="c">Gậy (club)</option>
-                <option value="u">Cốc (cup)</option>
-                <option value="e">Bằng nhau (equal)</option>
-                <option value="z">Rễ mạch (rhizomorphs)</option>
-                <option value="r">Có rễ (rooted)</option>
-                <option value="?">Không rõ (missing)</option>
-            </select> -->
-            <!-- 12 -->
-            <br>Bề mặt thân trên vòng (stalk-surface-above-ring):<br>
-            <select name="stalk-surface-above-ring" class="form-control" required>
-                <option value="2">Sợi (fibrous)</option>
-                <option value="0">Nhẵn (silky)</option>
-                <option value="1">Mượt (smooth)</option>
-                <option value="3">Vảy (scaly)</option>
-            </select>
-            <!-- 13 -->
-            <br>Bề mặt thân dưới vòng (stalk-surface-below-ring):<br>
-            <select name="stalk-surface-below-ring" class="form-control" required>
-                <option value="2">Sợi (fibrous)</option>
-                <option value="3">Vảy (scaly)</option>
-                <option value="0">Nhẵn (silky)</option>
-                <option value="1">Mượt (smooth)</option>
-            </select>
-            <!-- 14 -->
-            <br>Màu thân trên vòng (stalk-color-above-ring):<br>
-            <select name="stalk-color-above-ring" class="form-control" required>
-                <option value="4">Màu kem (buff)</option>
-                <option value="3">Màu quế (cinnamon)</option>
-                <option value="6">Đỏ (red)</option>
-                <option value="2">Xám (gray)</option>
-                <option value="0">Nâu (brown)</option>
-                <option value="5">Cam (orange)</option>
-                <option value="1">Hồng (pink)</option>
-                <option value="8">Trắng (white)</option>
-                <option value="7">Vàng (yellow)</option>
-            </select>
-            <!-- 15 -->
-            <br>Màu thân dưới vòng (stalk-color-below-ring):<br>
-            <select name="stalk-color-below-ring" class="form-control" required>
-                <option value="4">Màu kem (buff)</option>
-                <option value="3">Màu quế (cinnamon)</option>
-                <option value="6">Đỏ (red)</option>
-                <option value="2">Xám (gray)</option>
-                <option value="0">Nâu (brown)</option>
-                <option value="5">Cam (orange)</option>
-                <option value="1">Hồng (pink)</option>
-                <option value="8">Trắng (white)</option>
-                <option value="7">Vàng (yellow)</option>
-            </select>
-            <!-- 16 -->
-            <!-- <br>Loại màng vỏ (veil-type):<br>
-            <select name="veil-type" class="form-control" required>
-                <option value="p">Màng vỏ bán (partial)</option>
-                <option value="u">Màng vỏ toàn phần (universal)</option>
-            </select> -->
-            <!-- 17 -->
-            <br>Màu màng vỏ (veil-color):<br>
-            <select name="veil-color" class="form-control" required>
-                <option value="2">Nâu (brown)</option>
-                <option value="0">Cam (orange)</option>
-                <option value="1">Trắng (white)</option>
-                <option value="3">Vàng (yellow)</option>
-            </select>
-            <!-- 18 -->
-            <br>Số lượng vòng (ring-number):<br>
-            <select name="ring-number" class="form-control" required>
-                <option value="1">Không có (none)</option>
-                <option value="2">Một (one)</option>
-                <option value="0">Hai (two)</option>
-            </select>
-            <!-- 19 -->
-            <br>Loại vòng (ring-type):<br>
-            <select name="ring-type" class="form-control" required>
-                <option value="4">Biến mất (evanescent)</option>
-                <option value="0">Phồng lên (flaring)</option>
-                <option value="2">Lớn (large)</option>
-                <option value="1">Không có (none)</option>
-                <option value="3">Rủ xuống (pendant)</option>
-                <!-- <option value="c">Mạng nhện (cobwebby)</option>
-                <option value="s">Bọc (sheathing)</option>
-                <option value="z">Vùng (zone)</option> -->
-            </select>
-            <!-- 20 -->
-            <br>Màu bụi phấn (spore-print-color):<br>
-            <select name="spore-print-color" class="form-control" required>
-                <option value="2">Màu kem (buff)</option>
-                <option value="3">Sô cô la (chocolate)</option>
-                <option value="6">Đen (black)</option>
-                <option value="1">Nâu (brown)</option>
-                <option value="5">Cam (orange)</option>
-                <option value="4">Xanh lá cây (green)</option>
-                <option value="7">Tím (purple)</option>
-                <option value="8">Trắng (white)</option>
-                <option value="0">Vàng (yellow)</option>
-            </select>
-            <!-- 21 -->
-            <br>Độ đông dân số (population):<br>
-            <select name="population" class="form-control" required>
-                <option value="3">Dày đặc (abundant)</option>
-                <option value="2">Tụ tập (clustered)</option>
-                <option value="0">Nhiều (numerous)</option>
-                <option value="4">Rải rác (scattered)</option>
-                <option value="5">Một vài (several)</option>
-                <option value="1">Đơn độc (solitary)</option>
-            </select>
-            <!-- 22 -->
-            <br>Môi trường sống (habitat):<br>
-            <select name="habitat" class="form-control" required>
-                <option value="5">Rừng (woods)</option>
-                <option value="1">Cỏ (grasses)</option>
-                <option value="3">Lá (leaves)</option>
-                <option value="0">Đồng cỏ (meadows)</option>
-                <option value="4">Đường mòn (paths)</option>
-                <option value="6">Thành thị (urban)</option>
-                <option value="2">Rác thải (waste)</option>
-            </select>
-
-
-            <br>
-            <br>
-            <input type="submit" value="Submit" class="btn btn-primary">
-
-
-        </div>
-
-    </form>
-
-    <br>
-
-    <div class="result" align="center">
-        {% if result %} {% for variable, value in original_input.items() %}
-        <b>{{ variable }}</b> : {{ value }} {% endfor %}
-        <br>
-        <br>
-        <h1>Predicted House Price:</h1>
-        <p style="font-size:50px">${{ result }}</p>
+<form action="#" method="post">
+    <legend>
+        Mushroom
+    </legend>
+    <h5>Kết quả dự đoán:</h5>
+    <div class="result-box">
+        {% if result %}
+        <h2>Mẫu mới được dự đoán là {{ result }}</h2>
+        {% else %}
+        <h2>Bạn chưa lựa chọn đặc trưng</h2>
         {% endif %}
     </div>
+    <br>
+    <legend>
+        Lựa chọn đặc trưng:
+    </legend>
+    <br>Hình dạng mũ nấm (cap-shape):<br>
+    <select name=attr1 class="form-control" required>
+        <option value="5">Hình chuông (Bell)</option>
+        <option value="0">Hình nón (Conical)</option>
+        <option value="4">Phẳng (Flat)</option>
+        <option value="2">Có nút nhô lên (Knobbed)</option>
+        <option value="3">Lởm (Sunken)</option>
+        <option value="1">Lồi (Convex)</option>
+    </select>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-        </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-        </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-        </script>
-</body>
+    <br>Bề mặt mũ nấm (cap-surface):<br>
+    <select name="attr2" class="form-control" required>
+        <option value="2">Sợi (Fibrous)</option>
+        <option value="3">Rãnh (Grooves)</option>
+        <option value="0">Mịn (Smooth)</option>
+        <option value="1">Vảy (Scaly)</option>
+    </select>
 
-</html>
+    <br>Màu mũ nấm (cap-color):<br>
+    <select name="attr3" class="form-control" required>
+        <option value="4">Màu kem (buff)</option>
+        <option value="9">Màu quế (cinnamon)</option>
+        <option value="8">Đỏ (Red)</option>
+        <option value="3">Xám (Gray)</option>
+        <option value="2">Nâu (Brown)</option>
+        <option value="5">Hồng (Pink)</option>
+        <option value="0">Xanh lá (Green)</option>
+        <option value="7">Tím (Purple)</option>
+        <option value="1">Trắng (White)</option>
+        <option value="6">Vàng (Yellow)</option>
+    </select>
+
+    </select>
+    <br>Có vết bầm tím? (bruises):<br>
+    <select name="attr4" class="form-control" required>
+        <option value="1">Không (no)</option>
+        <option value="0">Có (bruises)</option>
+    </select>
+
+    <!-- 5 -->
+    <br>Mùi(odor):<br>
+    <select name="attr5" class="form-control" required>
+        <option value="6">Hạnh nhân (almond)</option>
+        <option value="0">Creosote (creosote)</option>
+        <option value="3">Khó chịu (foul)</option>
+        <option value="5">Hoa hồi (anise)</option>
+        <option value="2">Mốc mốc (musty)</option>
+        <option value="1">Không có (none)</option>
+        <option value="8">Cay (spicy)</option>
+        <option value="7">Cá yếu (fishy)</option>
+    </select>
+    <!-- 6 -->
+    <br>Phần nối mang (gill-attachment):<br>
+    <select name="attr6" class="form-control" required>
+        <option value="1">Gắn kết (attached)</option>
+        <option value="0">Tự do (free)</option>
+        <!-- <option value="d">Hạ xuống (descending)</option>
+        <option value="n">Răng cưa (notched)</option> -->
+    </select>
+    <!-- 7 -->
+    <br>Khoảng cách giữa lá mang (gill-spacing):<br>
+    <select name="attr7" class="form-control" required>
+        <option value="0">Gần nhau (close)</option>
+        <option value="1">Chật chội (crowded)</option>
+        <!-- <option value="d">Xa nhau (distant)</option> -->
+    </select>
+    <!-- 8 -->
+    <br>Kích thước lá mang (gill-size):<br>
+    <select name="attr8" class="form-control" required>
+        <option value="1">Rộng (broad)</option>
+        <option value="0">Hẹp (narrow)</option>
+    </select>
+    <!-- 9 -->
+    <br>Màu lá mang (gill-color):<br>
+    <select name="attr9" class="form-control" required>
+        <option value="4">Màu kem (buff)</option>
+        <option value="5">Đỏ (red)</option>
+        <option value="2">Xám (gray)</option>
+        <option value="7">Sô cô la (chocolate)</option>
+        <option value="10">Đen (black)</option>
+        <option value="3">Nâu (brown)</option>
+        <option value="6">Cam (orange)</option>
+        <option value="1">Hồng (pink)</option>
+        <option value="0">Xanh lá cây (green)</option>
+        <option value="8">Tím (purple)</option>
+        <option value="11">Trắng (white)</option>
+        <option value="6">Vàng (yellow)</option>
+    </select>
+    <!-- 10 -->
+    <br>Hình dạng thân (stalk-shape):<br>
+    <select name="attr10" class="form-control" required>
+        <option value="0">Mở rộng (enlarging)</option>
+        <option value="1">Thon dài (tapering)</option>
+    </select>
+    <!-- 11 -->
+    <!-- <br>Rễ (stalk-root):<br>
+    <select name="stalk-root" class="form-control" required>
+        <option value="b">Rễ củ (bulbous)</option>
+        <option value="c">Gậy (club)</option>
+        <option value="u">Cốc (cup)</option>
+        <option value="e">Bằng nhau (equal)</option>
+        <option value="z">Rễ mạch (rhizomorphs)</option>
+        <option value="r">Có rễ (rooted)</option>
+        <option value="?">Không rõ (missing)</option>
+    </select> -->
+    <!-- 11 -->
+    <br>Bề mặt thân trên vòng (stalk-surface-above-ring):<br>
+    <select name="attr11" class="form-control" required>
+        <option value="2">Sợi (fibrous)</option>
+        <option value="0">Nhẵn (silky)</option>
+        <option value="1">Mượt (smooth)</option>
+        <option value="3">Vảy (scaly)</option>
+    </select>
+    <!-- 12 -->
+    <br>Bề mặt thân dưới vòng (stalk-surface-below-ring):<br>
+    <select name="attr12" class="form-control" required>
+        <option value="2">Sợi (fibrous)</option>
+        <option value="3">Vảy (scaly)</option>
+        <option value="0">Nhẵn (silky)</option>
+        <option value="1">Mượt (smooth)</option>
+    </select>
+    <!-- 13 -->
+    <br>Màu thân trên vòng (stalk-color-above-ring):<br>
+    <select name="attr13" class="form-control" required>
+        <option value="4">Màu kem (buff)</option>
+        <option value="3">Màu quế (cinnamon)</option>
+        <option value="6">Đỏ (red)</option>
+        <option value="2">Xám (gray)</option>
+        <option value="0">Nâu (brown)</option>
+        <option value="5">Cam (orange)</option>
+        <option value="1">Hồng (pink)</option>
+        <option value="8">Trắng (white)</option>
+        <option value="7">Vàng (yellow)</option>
+    </select>
+    <!-- 14 -->
+    <br>Màu thân dưới vòng (stalk-color-below-ring):<br>
+    <select name="attr14" class="form-control" required>
+        <option value="4">Màu kem (buff)</option>
+        <option value="3">Màu quế (cinnamon)</option>
+        <option value="6">Đỏ (red)</option>
+        <option value="2">Xám (gray)</option>
+        <option value="0">Nâu (brown)</option>
+        <option value="5">Cam (orange)</option>
+        <option value="1">Hồng (pink)</option>
+        <option value="8">Trắng (white)</option>
+        <option value="7">Vàng (yellow)</option>
+    </select>
+    <!-- 15 -->
+    <!-- <br>Loại màng vỏ (veil-type):<br>
+    <select name="attr15" class="form-control" required>
+        <option value="p">Màng vỏ bán (partial)</option>
+        <option value="u">Màng vỏ toàn phần (universal)</option>
+    </select> -->
+    <!-- 15 -->
+    <br>Màu màng vỏ (veil-color):<br>
+    <select name="attr15" class="form-control" required>
+        <option value="2">Nâu (brown)</option>
+        <option value="0">Cam (orange)</option>
+        <option value="1">Trắng (white)</option>
+        <option value="3">Vàng (yellow)</option>
+    </select>
+    <!-- 16 -->
+    <br>Số lượng vòng (ring-number):<br>
+    <select name="attr16" class="form-control" required>
+        <option value="1">Không có (none)</option>
+        <option value="2">Một (one)</option>
+        <option value="0">Hai (two)</option>
+    </select>
+    <!-- 17 -->
+    <br>Loại vòng (ring-type):<br>
+    <select name="attr17" class="form-control" required>
+        <option value="4">Biến mất (evanescent)</option>
+        <option value="0">Phồng lên (flaring)</option>
+        <option value="2">Lớn (large)</option>
+        <option value="1">Không có (none)</option>
+        <option value="3">Rủ xuống (pendant)</option>
+        <!-- <option value="c">Mạng nhện (cobwebby)</option>
+        <option value="s">Bọc (sheathing)</option>
+        <option value="z">Vùng (zone)</option> -->
+    </select>
+    <!-- 18 -->
+    <br>Màu bụi phấn (spore-print-color):<br>
+    <select name="attr18" class="form-control" required>
+        <option value="2">Màu kem (buff)</option>
+        <option value="3">Sô cô la (chocolate)</option>
+        <option value="6">Đen (black)</option>
+        <option value="1">Nâu (brown)</option>
+        <option value="5">Cam (orange)</option>
+        <option value="4">Xanh lá cây (green)</option>
+        <option value="7">Tím (purple)</option>
+        <option value="8">Trắng (white)</option>
+        <option value="0">Vàng (yellow)</option>
+    </select>
+    <!-- 19 -->
+    <br>Độ đông dân số (population):<br>
+    <select name="attr19" class="form-control" required>
+        <option value="3">Dày đặc (abundant)</option>
+        <option value="2">Tụ tập (clustered)</option>
+        <option value="0">Nhiều (numerous)</option>
+        <option value="4">Rải rác (scattered)</option>
+        <option value="5">Một vài (several)</option>
+        <option value="1">Đơn độc (solitary)</option>
+    </select>
+    <!-- 20 -->
+    <br>Môi trường sống (habitat):<br>
+    <select name="attr20" class="form-control" required>
+        <option value="5">Rừng (woods)</option>
+        <option value="1">Cỏ (grasses)</option>
+        <option value="3">Lá (leaves)</option>
+        <option value="0">Đồng cỏ (meadows)</option>
+        <option value="4">Đường mòn (paths)</option>
+        <option value="6">Thành thị (urban)</option>
+        <option value="2">Rác thải (waste)</option>
+    </select>
+
+
+    <button type="submit">Dự đoán</button>
+</form>
+{% endblock %}
