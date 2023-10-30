@@ -48,7 +48,7 @@ def main():
                                                 'stalk-surface-below-ring', 'stalk-color-above-ring',
                                                 'stalk-color-below-ring', 'veil-color', 'ring-number',
                                                 'ring-type', 'spore-print-color', 'population', 'habitat'],
-                                       dtype='int64', index=['select'])
+                                       dtype='float', index=['input'])
         predictions = model.predict(input_variables)
         print(predictions)
 
