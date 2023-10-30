@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request
-from utils import get_y_pred
+import pandas as pd
+import joblib
+
+model = joblib.load('model/rf_mushroom_pre.joblib')
 
 app = Flask(__name__)
 
@@ -11,7 +14,11 @@ def index():
         for i in range(1, 21):
             attr.append(int(request.form[f"attr{i}"]))
         if attr:
-            result = get_y_pred(attr)
+            x1 = pd.DataFrame([attr])
+            result = model.predict(x1)
+            if result == 1:
+                result = "ăn được"
+            else: result = "không ăn được"
     return render_template("main.html", result=result)
 
 if __name__ == '__main__':
