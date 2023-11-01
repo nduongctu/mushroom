@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import pandas as pd
 import joblib
 
-model = joblib.load('model/rf_mushroom_pre.joblib')
+model = joblib.load('web_deloy/model/rf_mushroom_pre.joblib')
 
 app = Flask(__name__)
 
